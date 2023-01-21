@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext} from 'react';
+import { useNavigate } from 'react-router';
 import Topbar from '../ui/topbar'
 import '../index.css'
 import { Container, Row, Column, Item } from '../components/globalComponets';
@@ -8,12 +9,13 @@ import CustomButton from '../components/customButton';
 import CustomLabel from '../components/CustomLabel';
 import api from '../services/api'
 import AuthContext from '../contexts/authContext';
-// import { Container } from './styles';
 
 const Login: React.FC = () => {
-    const { login } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const { login, user } = useContext(AuthContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
     useEffect(() => {
         submit()
     },[])
@@ -23,9 +25,10 @@ const Login: React.FC = () => {
             email: email,
             password: password
         }
-        console.log(login)
+        
         api.post('/login', logindata).then((res) => {
             login(res.data.token, res.data.user)
+            navigate('/dashboard')
         })
     }
 

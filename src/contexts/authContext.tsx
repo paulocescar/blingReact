@@ -1,17 +1,22 @@
 import { createContext } from 'react';
+import { User } from '../interfaces/user';
 
 interface AuthContextData {
+    isLoggedIn: boolean,
     token: string | null,
-    user: object | null,
-    login: (token: string, user: object) => void,
-    logout: () => void
+    user: User | null,
+    login: (token: string, user: User) => void,
+    logout: () => void,
+    refreshPage: () => void
 }
 
 export const AuthContext = createContext<AuthContextData>({
+    isLoggedIn: false,
     token: null,
     user: null,
     login: () => {},
-    logout: () => {}
+    logout: () => {},
+    refreshPage: () => {}
 })
 
 export default AuthContext;

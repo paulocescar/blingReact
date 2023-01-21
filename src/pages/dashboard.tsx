@@ -4,7 +4,7 @@ import colors from '../constants/colors';
 import Topbar from '../ui/topbar'
 import AuthContext from '../contexts/authContext';
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { user } = useContext(AuthContext);
   return (
     <Container width="100vw" padding='0'>
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
                     padding='0 0 20px 0'
                     border="1px solid #ccc"
                     fontFamily='Roboto-Regular'>
-                        <h4>Bem vindo,  pagina inicial</h4>
+                        <h4>Bem vindo, {user ? user.name : 'desconhecido'}</h4>
                 </Row>
 
                 <Row backgroundColor="#fff" 
@@ -39,4 +39,4 @@ const Home: React.FC = () => {
   );
 }
 
-export default Home;
+export default Dashboard;
