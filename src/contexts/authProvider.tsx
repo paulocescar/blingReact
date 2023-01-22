@@ -33,6 +33,7 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         setToken(null)
         setUser(null)
         setIsLoggedIn(false)
+        refreshPage()
     }
 
     function refreshPage() {
