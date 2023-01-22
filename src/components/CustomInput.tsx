@@ -49,17 +49,13 @@ const CustomInput: React.FC<InputProps> = ({
          id={id} 
          className={className} style={{
                 margin,
-                padding,
+                padding: padding || '10px',
                 backgroundColor,
                 width: width || 'auto',
                 height,
                 border: border || '1px solid #ccc',
                 borderRadius: borderRadius || "5px",
                 boxSizing: "border-box",
-                transition: transition || `transition-duration: 0.15s, 0.15s;
-                                    transition-timing-function: ease-in-out, ease-in-out;
-                                    transition-delay: 0s, 0s;
-                                    transition-property: border-color, box-shadow;`
         }}></input>
     </div>;
 }

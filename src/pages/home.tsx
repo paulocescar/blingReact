@@ -15,24 +15,12 @@ const Home: React.FC = () => {
                 <Row backgroundColor={colors.gray+"25"} 
                     height="35px" 
                     width='auto' 
-                    borderRadius="10px 10px 0 0"
+                    borderRadius="10px"
                     justifyContent='center'
                     padding='0 0 20px 0'
                     border="1px solid #ccc"
                     fontFamily='Roboto-Regular'>
                         <h4>Bem vindo,  pagina inicial</h4>
-                </Row>
-
-                <Row backgroundColor="#fff" 
-                    height="auto" 
-                    width='auto' 
-                    padding='20px 0 20px 0'
-                    borderRadius="0 0 10px 10px"
-                    border="1px solid #ccc"
-                    display='grid'
-                    justifyContent='center'
-                    gap="20px 20px">
-
                 </Row>
             </Container>
     </Container>

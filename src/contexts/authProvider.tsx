@@ -8,18 +8,28 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [token, setToken] = useState<string | null>(null);
     const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() =>{
-        if(!user){
-            
+    useEffect(() => {
+        function getUser(){
+            setUser(JSON.parse(localStorage.getItem("user") ?? "{name: null}"))
         }
-    },[user, login, logout])
+        function getToken(){
+            setToken(localStorage.getItem("token"))
+        }
+        getToken()
+        getUser()
+    }, [token])
+
     function login(token: string, user: User): void{
+        localStorage.setItem("token", token)
+        localStorage.setItem("user", JSON.stringify(user))
         setToken(token)
-        setUser(user)   
+        setUser(user)
         setIsLoggedIn(true)
     }
 
     function logout(): void{
+        localStorage.setItem("token", "")
+        localStorage.setItem("user", `{ "name": "" }`)
         setToken(null)
         setUser(null)
         setIsLoggedIn(false)

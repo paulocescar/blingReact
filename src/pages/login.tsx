@@ -15,10 +15,7 @@ const Login: React.FC = () => {
     const { login, user } = useContext(AuthContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
-    useEffect(() => {
-        submit()
-    },[])
+    const [error, setError] = useState(false);
 
     function submit(){
         const logindata = {
@@ -29,6 +26,8 @@ const Login: React.FC = () => {
         api.post('/login', logindata).then((res) => {
             login(res.data.token, res.data.user)
             navigate('/dashboard')
+        }).catch((error) => {
+            setError(true)
         })
     }
 
@@ -80,6 +79,9 @@ const Login: React.FC = () => {
                                 
                             </CustomButton>
                         </Row>
+                        {error ?
+                         <Item color={colors.danger}>Algo deu errado, tente novamente.</Item>:<></>
+                        }
                 </Row>
             </Container>
         </Container>

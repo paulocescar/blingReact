@@ -8,42 +8,47 @@ import { useNavigate } from 'react-router-dom';
 
 const Topbar: React.FC = () => {
     const navigate = useNavigate();
-    const { isLoggedIn, user, logout } = useContext(AuthContext)
-
-    useEffect(() => {
-        if(!isLoggedIn){
-            navigate('/login')
-        }
-    },[isLoggedIn])
+    const { logout, user } = useContext(AuthContext)
     return (
         <Container width="99vw" height='45px' backgroundcolor='white' padding='0 1% 0 0' borderBottom='0.1rem solid #ccc'>
             <Row width='95vw' justifyContent='space-between' display='inline-flex'>
-                <Column width='auto'> 
-                    <Link to ="/">
-                        <Item color="#444" cursor='pointer' fontSize='18px' fontFamily='Roboto-Regular'>Home</Item>
-                    </Link>
-                </Column>
+                <Row width='auto' gap='10px 10px'> 
+                        {user && user.name ? 
+                        <>
+                            <Link to ="/dashboard" style={{textDecoration: "none"}}>
+                                <Item color="#444" cursor='pointer' fontSize='18px' fontFamily='Roboto-Regular'>Dashboard</Item>
+                            </Link>   
+                            <Link to ="/settings" style={{textDecoration: "none"}}>
+                                <Item color="#444" cursor='pointer' fontSize='18px' fontFamily='Roboto-Regular'>configurações</Item>
+                            </Link>  
+                        </> 
+                            :
+                            <Link to ="/" style={{textDecoration: "none"}}>
+                                <Item color="#444" cursor='pointer' fontSize='18px' fontFamily='Roboto-Regular'>Home</Item>
+                            </Link>
+                    }
+                </Row>
 
                 <Column width='auto'> 
                     <Item color={user ? "#444" : "#FFF"} width="auto" cursor='pointer'>
                         {user && user.name ? 
                         <Row display='inline-flex'>
                         {user.name} 
-                        <CustomButton title='logar' 
+                        <CustomButton title='sair' 
                         backgroundColor={colors.danger}
                         borderRadius="5px"
                         margin="0 0 10px 10px"
                         borderColor='#fff0'
                         cursor='pointer'
-                        onClick={() => {logout(); navigate('/');}}>Sair</CustomButton>
+                        onClick={() => {logout();}}>Sair</CustomButton>
                         </Row>
                         :
                         <Link to ="/login">
                             <CustomButton title='logar' 
-                                        backgroundColor={colors.Primary}
                                         borderRadius="5px"
                                         padding='5px 10px 5px 10px'
                                         borderColor='#fff0'
+                                        color="#444"
                                         cursor='pointer'>Login</CustomButton>
                         </Link>
                         }
