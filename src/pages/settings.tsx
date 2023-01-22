@@ -7,6 +7,7 @@ import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/customButton';
 import CustomLabel from '../components/CustomLabel';
 import api from '../services/api'
+import { changeValue } from '../utlis/utils';
 
 const Settings: React.FC = () => {
     const { user, token, refreshPage } = useContext(AuthContext)
@@ -18,8 +19,21 @@ const Settings: React.FC = () => {
 
 
     useEffect(() => {
-        
-    },[])
+        getSettings()
+        function getSettings(){
+            api.get('/bling/user', { headers: { 'Authorization': 'Bearer ' + token}
+        }).then((res) => {
+            if(res.status == 200){
+                setNome(res.data.name)
+                setEmail(res.data.email)
+                setApikey(res.data.api_key)
+            }
+        }).catch((error) => {
+            setError(true)
+            console.log(error); //Logs a string: Error: Request failed with status code 404
+        });
+        }
+    },[nome])
 
     function submit(){
         const data = {
@@ -31,9 +45,11 @@ const Settings: React.FC = () => {
         }).then((res) => {
             if(res.status == 200){
                 setSettingSave(true)
+                setError(false)
             }
         }).catch((error) => {
             setError(true)
+            setSettingSave(false)
             console.log(error); //Logs a string: Error: Request failed with status code 404
         });
     }
@@ -41,20 +57,20 @@ const Settings: React.FC = () => {
       <Container width="100vw" padding='0'>
         <Topbar></Topbar>
               <Container 
-                      justifyContent='space-around'
-                      transform="translateX(50%)"
-                      margin="0"
-                      display="block"
-                      width='50%'>
+                    justifyContent='space-around'
+                    transform="translateX(50%)"
+                    margin="0"
+                    display="block"
+                    width='50%'>
                   <Row backgroundColor={colors.gray+"25"} 
                       height="auto" 
                       width='auto' 
                       borderRadius="10px 10px 0 0"
-                      justifyContent='space-around'
+                      justifyContent='center'
                       padding='0 10px'
                       border="1px solid #ccc"
                       fontFamily='Roboto-Regular'>
-                          <h4>Configurações</h4>
+                          <p><h3>Configurações</h3> <span style={{color: colors.gray}}>campos obrigatórios</span> <span style={{color: colors.danger}} title="Obrigatório">*</span></p>
                   </Row>
   
                   <Row backgroundColor="#fff" 
@@ -67,19 +83,22 @@ const Settings: React.FC = () => {
                       justifyContent='center'
                       gap="20px 20px">
                       <Row display='grid'>
-                         <CustomLabel width='auto' margin="0 0 10px 10px"> Nome:</CustomLabel>
+                         <CustomLabel width='auto' margin="0 0 10px 10px"> Nome: <span style={{color: colors.danger}} title="Obrigatório">*</span></CustomLabel>
                          <CustomInput width='100%' type="text" name="nome" id="nome" className='inputFocus'
-                                     onChange={(e) => setNome(e.target.value)}/>
+                                    value={nome} 
+                                    onChange={(e) => changeValue(e.target.value, setNome)}/>
                      </Row>
                          <Row display='grid'>
-                            <CustomLabel width='auto' margin="0 0 10px 10px"> E-mail:</CustomLabel>
+                            <CustomLabel width='auto' margin="0 0 10px 10px"> E-mail: <span style={{color: colors.danger}} title="Obrigatório">*</span></CustomLabel>
                             <CustomInput width='100%' type="text" name="email" id="email" className='inputFocus'
-                                        onChange={(e) => setEmail(e.target.value)}/>
+                                        value={email} 
+                                        onChange={(e) => changeValue(e.target.value, setEmail)}/>
                         </Row>
                          <Row display='grid'>
-                            <CustomLabel width='auto' margin="0 0 10px 10px"> Token do Bling:</CustomLabel>
-                            <CustomInput width='100%' type="text" name="apikey" id="apikey" className='inputFocus'
-                                        onChange={(e) => setApikey(e.target.value)}/>
+                            <CustomLabel width='auto' margin="0 0 10px 10px"> Token do Bling: <span style={{color: colors.danger}} title="Obrigatório">*</span></CustomLabel>
+                            <CustomInput width='100%' type="password" name="apikey" id="apikey" className='inputFocus'
+                                        value={apikey} 
+                                        onChange={(e) => changeValue(e.target.value, setApikey)}/>
                         </Row>
 
 

@@ -15,7 +15,8 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement>{
     transition?: string,
     onChange?: React.ChangeEventHandler<HTMLInputElement>,
     onFocus?: React.ChangeEventHandler<HTMLInputElement>,
-    onBlur?: React.ChangeEventHandler<HTMLInputElement>
+    onBlur?: React.ChangeEventHandler<HTMLInputElement>,
+    value?: string
 }
 
 
@@ -36,6 +37,7 @@ const CustomInput: React.FC<InputProps> = ({
     onChange,
     onFocus,
     onBlur,
+    value,
     ...props
 
 }) => {
@@ -47,6 +49,7 @@ const CustomInput: React.FC<InputProps> = ({
          type={type} 
          name={name} 
          id={id} 
+         value={value}
          className={className} style={{
                 margin,
                 padding: padding || '10px',
