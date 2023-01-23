@@ -4,19 +4,19 @@ import AuthContext from '../contexts/authContext';
 import colors from '../constants/colors';
 import Topbar from '../ui/topbar'
 import CustomInput from '../components/CustomInput'
-import CustomButton from '../components/customButton';
+import CustomButton from '../components/CustomButton';
 import CustomLabel from '../components/CustomLabel';
 import api from '../services/api'
 import { changeValue } from '../utlis/utils';
 
 const Settings: React.FC = () => {
-    const { user, token, refreshPage } = useContext(AuthContext)
+    const { user, refreshPage } = useContext(AuthContext)
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [apikey, setApikey] = useState("");
     const [settingSave, setSettingSave] = useState(false);
     const [error, setError] = useState(false);
-
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
         getSettings()
@@ -33,7 +33,7 @@ const Settings: React.FC = () => {
             console.log(error); //Logs a string: Error: Request failed with status code 404
         });
         }
-    },[nome])
+    },[])
 
     function submit(){
         const data = {

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-interface InputProps extends React.HTMLAttributes<HTMLInputElement>{
+interface SelectProps extends React.HTMLAttributes<HTMLSelectElement>{
+    children: ReactNode,
     margin?: string,
     padding?: string,
     backgroundColor?: string,
@@ -13,15 +14,16 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement>{
     id?: string,
     className?: string,
     transition?: string,
-    onChange?: React.ChangeEventHandler<HTMLInputElement>,
-    onFocus?: React.ChangeEventHandler<HTMLInputElement>,
-    onBlur?: React.ChangeEventHandler<HTMLInputElement>,
+    onChange?: React.ChangeEventHandler<HTMLSelectElement>,
+    onFocus?: React.ChangeEventHandler<HTMLSelectElement>,
+    onBlur?: React.ChangeEventHandler<HTMLSelectElement>,
     require?: boolean,
-    value?: string
+    value?: number
 }
 
 
-const CustomInput: React.FC<InputProps> = ({
+const CustomSelect: React.FC<SelectProps> = ({
+    children,
     type,
     id,
     name,
@@ -44,12 +46,11 @@ const CustomInput: React.FC<InputProps> = ({
 
 }) => {
     return <div>
-        <input {...props} 
+        <select {...props} 
          onChange={onChange}
          onFocus={onFocus}
          onBlur={onBlur}
          required
-         type={type} 
          name={name} 
          id={id} 
          value={value}
@@ -62,8 +63,8 @@ const CustomInput: React.FC<InputProps> = ({
                 border: border || '1px solid #ccc',
                 borderRadius: borderRadius || "5px",
                 boxSizing: "border-box",
-        }}></input>
+        }}>{children}</select>
     </div>;
 }
 
-export default CustomInput;
+export default CustomSelect;

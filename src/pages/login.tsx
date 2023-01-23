@@ -5,7 +5,7 @@ import '../index.css'
 import { Container, Row, Column, Item } from '../components/globalComponets';
 import colors from '../constants/colors';
 import CustomInput from '../components/CustomInput'
-import CustomButton from '../components/customButton';
+import CustomButton from '../components/CustomButton';
 import CustomLabel from '../components/CustomLabel';
 import api from '../services/api'
 import AuthContext from '../contexts/authContext';

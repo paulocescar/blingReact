@@ -1,4 +1,4 @@
-import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode, useState } from 'react';
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode,
@@ -92,6 +92,53 @@ export const Row: React.FC<RowProps> = ({
         fontFamily,
     }}>{children}</div>
 )
+interface RowPropsJSX extends HTMLAttributes<HTMLDivElement> {
+    children?: any[],
+    width?: string,
+    height?: string,
+    padding?: string,
+    justifyContent?: string,
+    display?: string,
+    backgroundColor?: string,
+    margin?: string,
+    borderRadius?: string,
+    border?: string,
+    flexDirection?: "row" | "row-reverse" | "column" | "column-reverse",
+    gap?: string,
+    fontFamily?: string
+}
+
+export const RowJSX: React.FC<RowPropsJSX> = ({
+    children,
+    width,
+    height,
+    padding,
+    justifyContent,
+    display,
+    border,
+    backgroundColor,
+    margin,
+    borderRadius,
+    flexDirection,
+    gap,
+    fontFamily,
+    ...props
+}) => (
+    <div {...props} style={{
+        display: display || 'flex',
+        flexDirection: flexDirection || 'row',
+        width: width || '100%',
+        height: height || '100%',
+        padding: padding || '0',
+        justifyContent: justifyContent || 'normal',
+        border,
+        backgroundColor,
+        margin,
+        borderRadius,
+        gap,
+        fontFamily,
+    }}>{children}</div>
+)
 
 interface ColumnProps extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode,
@@ -126,45 +173,40 @@ export const Column: React.FC<ColumnProps> = ({
 )
 
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
-    children?: ReactNode,
-    width?: string,
-    height?: string,
-    padding?: string,
-    float?: "left" | "right" | "none" | "inline-start" | "inline-end",
-    cursor?: string,
-    fontSize?: string,
-    verticalAlign?: string,
-    fontFamily?: string
+    sx?: CSSProperties,
+    isHover?: boolean,
+    padding?: string
 }
 
 export const Item: React.FC<ItemProps> = ({
-    children,
-    width,
-    height,
+    sx, 
+    isHover,
     padding,
-    float,
-    cursor,
-    color,
-    fontSize,
-    verticalAlign,
-    fontFamily,
-    ...props
-}) => (
-    <div {...props} style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: width || 'auto',
-        height: height || '30px',
-        padding: padding || '10px 0 0 0',
-        float,
-        cursor,
-        color: color || "#FFF",
-        fontSize: fontSize || "12px",
-        verticalAlign: verticalAlign || "middle",
-        fontFamily,
-        textDecoration: "none"
-    }}>{children}</div>
-)
+    ...props}) => {
+    const [hover, setHover] = useState(false);
+    const style: CSSProperties = {
+        backgroundColor: hover && isHover ? "#CCC  " : "",
+        display: sx?.display || "flex",
+        cursor: sx?.cursor || "pointer",
+        flexDirection: sx?.flexDirection || "column",
+        width: sx?.width || "auto",
+        height: sx?.height || "30px",
+        padding: sx?.padding || "10px 5px 5px 5px",
+        color: sx?.color || "#444",
+        fontSize: sx?.fontSize || "18px",
+        fontFamily: 'Roboto-Regular',
+        verticalAlign: sx?.verticalAlign || "middle",
+        textDecoration: "none",
+        ...sx
+    }
+    return <div 
+        {...props}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        style={style}>
+            {props.children}
+    </div>;
+}
 
 interface ModalProps extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode,

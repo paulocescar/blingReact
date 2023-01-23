@@ -17,7 +17,7 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         }
         getToken()
         getUser()
-    }, [token])
+    }, [])
 
     function login(token: string, user: User): void{
         localStorage.setItem("token", token)
