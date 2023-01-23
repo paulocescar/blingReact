@@ -34,7 +34,7 @@ const Login: React.FC = () => {
     return (<Container width="100vw" padding='0'>
             <Topbar></Topbar>
             <Container 
-                    margin="20px 40% 0 30%"
+                    margin="20px 35% 0 35%"
                     width='auto'>
                 <Row backgroundColor={colors.gray+"25"} 
                     height="35px" 
