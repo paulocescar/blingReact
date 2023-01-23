@@ -33,7 +33,7 @@ const Categories: React.FC = () => {
             setCategories(res.data)
           }
       }).catch((error) => {
-          setSuccessr(false)
+          setSuccess(false)
           setError(true)
           console.log(error); //Logs a string: Error: Request failed with status code 404
       })
