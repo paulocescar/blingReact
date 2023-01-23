@@ -19,7 +19,7 @@ const Categories: React.FC = () => {
   const [descricao, setDescricao] = useState("");
   const [idCategoriaPai, setIdCategoriaPai] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [categories, setCategories] = useState<categoriesItem[]>([{id: 0, descricao: "Selecione"}])
+  const [categories, setCategories] = useState<categoriesItem[]>([])
   const [success, setSuccessr] = useState(false);
   const [error, setError] = useState(false);
 
