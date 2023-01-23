@@ -16,11 +16,12 @@ interface categoriesItem {
 }
 
 const Categories: React.FC = () => {
+  const { refreshPage } = useContext(AuthContext)
   const [descricao, setDescricao] = useState("");
   const [idCategoriaPai, setIdCategoriaPai] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [categories, setCategories] = useState<categoriesItem[]>([])
-  const [success, setSuccessr] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() =>{
@@ -38,8 +39,6 @@ const Categories: React.FC = () => {
       })
     }
     getCategories()
-
-    
   },[])
   
   const [selectedOption, setSelectedOption] = useState<categoriesItem>();
@@ -60,13 +59,13 @@ const Categories: React.FC = () => {
           if(res.status == 200){
             setDescricao("")
             setError(false)
-            setSuccessr(true)
+            setSuccess(true)
           }
       }).catch((error) => {
-          setSuccessr(false)
+          setSuccess(false)
           setError(true)
           console.log(error); //Logs a string: Error: Request failed with status code 404
-      });
+      }).finally(() => refreshPage() );
     
   }
 
