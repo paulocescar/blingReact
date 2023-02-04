@@ -24,7 +24,7 @@ const Login: React.FC = () => {
         }
         
         api.post('/login', logindata).then((res) => {
-            login(res.data.token, res.data.user)
+            login(res.data.token, res.data.user, res.data.expired_at)
             navigate('/dashboard')
         }).catch((error) => {
             setError(true)

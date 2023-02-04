@@ -246,3 +246,127 @@ export const ModalComponent: React.FC<ModalProps> = ({
         padding: "32px"
     }}>{children}</div>
 )
+
+interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+    sx?: CSSProperties,
+    display?: string,
+    margin?: string,
+    padding?: string,
+    position?: string,
+    backgroundColor?: string,
+    width?: string,
+    height?: string,
+    border?: string,
+    borderRadius?: string,
+}
+export const CustomTable: React.FC<TableProps> = ({
+    sx,
+    display,
+    margin,
+    padding,
+    position,
+    backgroundColor,
+    width,
+    height,
+    border,
+    borderRadius,
+    ...props}) => {
+        const style: CSSProperties = {
+            display: sx?.display || "block",
+            position: sx?.position || "relative",
+            borderCollapse: 'collapse',
+            width: sx?.width || '100%!important',
+            height: sx?.height || '100%!important',
+            ...sx
+        }
+    return <table 
+        {...props}
+        style={style}>
+            {props.children}
+    </table>;
+}
+
+
+interface THProps extends React.HTMLAttributes<HTMLTableHeaderCellElement> {
+    children?: ReactNode,
+    width?: string,
+    height?: string,
+    padding?: string,
+    justifyContent?: string,
+    alignItems?: string,
+    textAlign?: string,
+    backgroundColor?: string,
+    color?: string,
+    float?: "left" | "right" | "none" | "inline-start" | "inline-end",
+}
+export const CustomTH: React.FC<THProps> = ({
+    children,
+    width,
+    height,
+    padding,
+    float,
+    justifyContent,
+    textAlign,
+    backgroundColor,
+    color,
+    alignItems,
+    ...props}) => {
+    return <th 
+        {...props}
+        style={{
+            width: width || 'auto',
+            height: height || '100%',
+            padding: padding || '12px',
+            alignItems: alignItems || "left",
+            backgroundColor: backgroundColor || "#04AA6D",
+            color: color || "white",
+            float
+            }}>
+            {children}
+    </th>;
+}
+
+interface TRProps extends React.HTMLAttributes<HTMLTableRowElement> {
+    sx?: CSSProperties,
+    width?: string,
+}
+export const CustomTR: React.FC<TRProps> = ({
+    sx,
+    width,
+    ...props}) => {
+        const style: CSSProperties = {
+            border: sx?.border || "1px solid #ddd",
+            padding: sx?.padding || "8px",
+            textAlign: sx?.textAlign || "left",
+            color: sx?.color || "black",
+            ...sx
+        }
+    return <tr 
+        {...props}
+        style={{...style, width: width}}>
+            {props.children}
+    </tr>;
+}
+
+interface TDProps extends React.HTMLAttributes<HTMLDivElement> {
+    sx?: CSSProperties,
+    width?: string,
+}
+export const CustomTD: React.FC<TDProps> = ({
+    sx,
+    width,
+    ...props}) => {
+        const style: CSSProperties = {
+            border: sx?.border || "1px solid #ddd",
+            width: sx?.width || "auto",
+            padding: sx?.padding || "8px",
+            textAlign: sx?.textAlign || "left",
+            color: sx?.color || "black",
+            ...sx
+        }
+    return <td 
+        {...props}
+        style={style}>
+            {props.children}
+    </td>;
+}

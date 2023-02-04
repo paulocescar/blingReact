@@ -6,7 +6,8 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import Settings from './pages/settings';
-import Categories from './pages/categorias';
+import CategoriesList from './pages/categories/categorias_list';
+import Categories from './pages/categories/categorias';
 
 const AppRouter: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ const AppRouter: React.FC = () => {
             <Route path='/login' element={<Login/>} />
             <Route path='/dashboard' element={<ProtectedRoute pageElement={<Dashboard />} />} />
             <Route path='/settings' element={<ProtectedRoute pageElement={<Settings />} />} />
-            <Route path='/categories' element={<ProtectedRoute pageElement={<Categories />} />} />
+            <Route path='/categories' element={<ProtectedRoute pageElement={<CategoriesList />} />} />
+            <Route path='/add-categories' element={<ProtectedRoute pageElement={<Categories />} />} />
           </Routes>
       </Router>
     </AuthProvider>

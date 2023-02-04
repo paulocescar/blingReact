@@ -15,8 +15,8 @@ interface categoriesItem {
   descricao: string
 }
 
-const Categories: React.FC = () => {
-  const { refreshPage } = useContext(AuthContext)
+const Produtos: React.FC = () => {
+  const { refreshPage, logout } = useContext(AuthContext)
   const [descricao, setDescricao] = useState("");
   const [idCategoriaPai, setIdCategoriaPai] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -36,6 +36,9 @@ const Categories: React.FC = () => {
           setSuccess(false)
           setError(true)
           console.log(error); //Logs a string: Error: Request failed with status code 404
+          if (error.response.status === 401) {
+            logout()
+        }
       })
     }
     getCategories()
@@ -62,9 +65,11 @@ const Categories: React.FC = () => {
             setSuccess(true)
           }
       }).catch((error) => {
-          setSuccess(false)
-          setError(true)
-          console.log(error); //Logs a string: Error: Request failed with status code 404
+          if (error.response.status === 401) {
+            logout()
+          }
+          console.log(error.message); //Logs a string: Error: Request failed with status code 404
+          
       }).finally(() => refreshPage() );
     
   }
@@ -79,7 +84,7 @@ const Categories: React.FC = () => {
                 display="block"
                 width='50%'>
 
-<Row backgroundColor={colors.gray+"25"} 
+                  <Row backgroundColor={colors.gray+"25"} 
                       height="auto" 
                       width='auto' 
                       borderRadius="10px 10px 0 0"
@@ -87,7 +92,7 @@ const Categories: React.FC = () => {
                       padding='0 10px'
                       border="1px solid #ccc"
                       fontFamily='Roboto-Regular'>
-                          <p><h3>Categorias</h3> <span style={{color: colors.gray}}>campos obrigatórios</span> <span style={{color: colors.danger}} title="Obrigatório">*</span></p>
+                          <p><h3>Produtos</h3> <span style={{color: colors.gray}}>campos obrigatórios</span> <span style={{color: colors.danger}} title="Obrigatório">*</span></p>
                   </Row>
   
                   <Row backgroundColor="#fff" 
@@ -143,8 +148,4 @@ const Categories: React.FC = () => {
   )
 }
 
-export default Categories;
-
-function SetStateAction<T>(arg0: null): [any, any] {
-  throw new Error('Function not implemented.');
-}
+export default Produtos;

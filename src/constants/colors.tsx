@@ -1,5 +1,5 @@
 export default {
-    Primary: "#8DA1E3",
+    Primary: "#04AA6D",
     Secondary: "#995CFF",
     info: "#5AFAEF",
     sucess: "#36AD4A",

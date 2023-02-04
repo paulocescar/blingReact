@@ -10,7 +10,7 @@ import api from '../services/api'
 import { changeValue } from '../utlis/utils';
 
 const Settings: React.FC = () => {
-    const { user, refreshPage } = useContext(AuthContext)
+    const { user, refreshPage, logout } = useContext(AuthContext)
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [apikey, setApikey] = useState("");
@@ -31,6 +31,9 @@ const Settings: React.FC = () => {
         }).catch((error) => {
             setError(true)
             console.log(error); //Logs a string: Error: Request failed with status code 404
+            if (error.response.status === 401) {
+                logout()
+            }
         });
         }
     },[])
